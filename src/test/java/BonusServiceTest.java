@@ -129,11 +129,11 @@ public class BonusServiceTest {
     }
 
     @org.junit.jupiter.api.Test
-    void TestReg_NegCheck() {
+    void TestReg_minCheck() {
         BonusService service = new BonusService();
 
-        // тест на проверку получения бонусов с отрицательным чеком (3%)
-        long amount = -100;
+        // тест на проверку получения бонусов с минимальным чеком (3%)
+        long amount = 30;
         boolean registered = true;
         long expected = 0;
 
@@ -145,13 +145,45 @@ public class BonusServiceTest {
     }
 
     @org.junit.jupiter.api.Test
-    void TestNoReg_NegCheck() {
+    void TestNoReg_minCheck() {
         BonusService service = new BonusService();
 
-        // тест на проверку получения бонусов с отрицательным чеком (1%)
-        long amount = -100;
+        // тест на проверку получения бонусов с минимальным чеком (1%)
+        long amount = 30;
         boolean registered = false;
         long expected = 0;
+
+        // вызываем целевой метод:
+        long actual = service.calculate(amount, registered);
+
+        // производим проверку (сравниваем ожидаемый и фактический):
+        assertEquals(expected, actual);
+    }
+
+    @org.junit.jupiter.api.Test
+    void TestReg_minCheck2() {
+        BonusService service = new BonusService();
+
+        // тест на проверку получения бонусов с минимальным чеком (3%)
+        long amount = 60;
+        boolean registered = true;
+        long expected = 1;
+
+        // вызываем целевой метод:
+        long actual = service.calculate(amount, registered);
+
+        // производим проверку (сравниваем ожидаемый и фактический):
+        assertEquals(expected, actual);
+    }
+
+    @org.junit.jupiter.api.Test
+    void TestNoReg_minCheck2() {
+        BonusService service = new BonusService();
+
+        // тест на проверку получения бонусов с минимальным чеком (1%)
+        long amount = 100;
+        boolean registered = false;
+        long expected = 1;
 
         // вызываем целевой метод:
         long actual = service.calculate(amount, registered);
